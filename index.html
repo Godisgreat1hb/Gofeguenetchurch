@@ -1,0 +1,1693 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gofe Guenut Church Youth Unity - Registration & Community Portal</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        navy: {
+                            DEFAULT: '#0F172A',
+                            dark: '#090D16',
+                            light: '#1E293B',
+                            accent: '#1D3557'
+                        },
+                        gold: {
+                            DEFAULT: '#D4AF37',
+                            light: '#F3E5AB',
+                            dark: '#AA8C2C'
+                        },
+                        emerald: {
+                            DEFAULT: '#059669',
+                            light: '#10B981',
+                            dark: '#047857'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        serif: ['Playfair Display', 'serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,600;0,700;1,400&display=swap" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Custom scrollbar and animations */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #0F172A;
+            border-radius: 5px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #D4AF37;
+        }
+        .hero-bg {
+            background: linear-gradient(rgba(15, 23, 42, 0.82), rgba(15, 23, 42, 0.75)), url('https://images.unsplash.com/photo-1511632765486-a01980e01a18?auto=format&fit=crop&w=2000&q=80');
+            background-size: cover;
+            background-position: center;
+        }
+        .gold-gradient-text {
+            background: linear-gradient(135deg, #F3E5AB 0%, #D4AF37 50%, #AA8C2C 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .modal-overlay {
+            background: rgba(0, 0, 0, 0.75);
+            backdrop-filter: blur(4px);
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800 font-sans antialiased flex flex-col min-h-screen">
+
+    <!-- Notification Toast -->
+    <div id="toast-container" class="fixed bottom-5 right-5 z-50 flex flex-col space-y-2 pointer-events-none"></div>
+
+    <!-- STICKY NAVIGATION BAR -->
+    <header class="sticky top-0 z-40 bg-navy text-white shadow-lg border-b border-gold/30">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                <!-- Logo & Title -->
+                <a href="#home" class="flex items-center space-x-3 group">
+                    <div class="w-12 h-12 rounded-full bg-gradient-to-tr from-gold to-gold-light flex items-center justify-center text-navy font-bold shadow-md group-hover:scale-105 transition-transform">
+                        <i class="fa-solid fa-church text-xl"></i>
+                    </div>
+                    <div>
+                        <span class="block font-serif text-lg sm:text-xl font-bold tracking-wide text-gold">GOFE GUENUT</span>
+                        <span class="block text-xs uppercase tracking-widest text-gray-300">Church Youth Unity</span>
+                    </div>
+                </a>
+
+                <!-- Desktop Navigation Links -->
+                <nav class="hidden xl:flex items-center space-x-6 text-sm font-medium">
+                    <a href="#home" class="hover:text-gold transition-colors">Home</a>
+                    <a href="#about" class="hover:text-gold transition-colors">About Us</a>
+                    <a href="#register" class="hover:text-gold transition-colors text-gold font-semibold">Registration</a>
+                    <a href="#activities" class="hover:text-gold transition-colors">Activities</a>
+                    <a href="#events" class="hover:text-gold transition-colors">Events</a>
+                    <a href="#gallery" class="hover:text-gold transition-colors">Gallery</a>
+                    <a href="#leadership" class="hover:text-gold transition-colors">Leadership</a>
+                    <a href="#announcements" class="hover:text-gold transition-colors">Notices</a>
+                    <a href="#admin" class="hover:text-gold transition-colors text-emerald-400 font-semibold"><i class="fa-solid fa-lock text-xs mr-1"></i> Admin</a>
+                    <a href="#contact" class="hover:text-gold transition-colors">Contact</a>
+                </nav>
+
+                <!-- Header Actions -->
+                <div class="hidden sm:flex items-center space-x-4">
+                    <a href="#register" class="bg-gold hover:bg-gold-dark text-navy font-bold px-5 py-2.5 rounded-full shadow-lg hover:shadow-gold/50 transition-all transform hover:-translate-y-0.5 text-sm uppercase tracking-wider">
+                        Join Us
+                    </a>
+                </div>
+
+                <!-- Mobile Hamburger Button -->
+                <div class="xl:hidden flex items-center">
+                    <button id="mobile-menu-btn" aria-label="Toggle menu" class="text-gray-200 hover:text-gold focus:outline-none p-2 rounded-lg text-2xl">
+                        <i class="fa-solid fa-bars"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Dropdown Menu -->
+        <div id="mobile-menu" class="hidden xl:hidden bg-navy-dark border-t border-gray-800 px-6 pt-4 pb-6 space-y-3">
+            <a href="#home" class="mobile-link block py-2 text-gray-200 hover:text-gold font-medium border-b border-gray-800">Home</a>
+            <a href="#about" class="mobile-link block py-2 text-gray-200 hover:text-gold font-medium border-b border-gray-800">About Us</a>
+            <a href="#register" class="mobile-link block py-2 text-gold font-semibold border-b border-gray-800">Registration</a>
+            <a href="#activities" class="mobile-link block py-2 text-gray-200 hover:text-gold font-medium border-b border-gray-800">Activities</a>
+            <a href="#events" class="mobile-link block py-2 text-gray-200 hover:text-gold font-medium border-b border-gray-800">Events</a>
+            <a href="#gallery" class="mobile-link block py-2 text-gray-200 hover:text-gold font-medium border-b border-gray-800">Gallery</a>
+            <a href="#leadership" class="mobile-link block py-2 text-gray-200 hover:text-gold font-medium border-b border-gray-800">Leadership</a>
+            <a href="#announcements" class="mobile-link block py-2 text-gray-200 hover:text-gold font-medium border-b border-gray-800">Announcements</a>
+            <a href="#admin" class="mobile-link block py-2 text-emerald-400 font-medium border-b border-gray-800"><i class="fa-solid fa-lock text-xs mr-1"></i> Admin Dashboard</a>
+            <a href="#contact" class="mobile-link block py-2 text-gray-200 hover:text-gold font-medium">Contact Us</a>
+            <div class="pt-2">
+                <a href="#register" class="mobile-link block text-center bg-gold text-navy font-bold py-3 rounded-full shadow">Register Now</a>
+            </div>
+        </div>
+    </header>
+
+    <main class="flex-grow">
+        <!-- 2. HOMEPAGE HERO SECTION -->
+        <section id="home" class="hero-bg min-h-[90vh] flex items-center justify-center text-white relative px-4 py-20">
+            <div class="max-w-5xl mx-auto text-center space-y-8 z-10">
+                <div class="inline-flex items-center space-x-2 bg-navy-light/80 border border-gold/40 px-4 py-1.5 rounded-full text-gold text-xs sm:text-sm font-medium tracking-wide uppercase shadow-lg">
+                    <i class="fa-solid fa-dove"></i>
+                    <span>Official Youth Unity Portal</span>
+                </div>
+                <h1 class="font-serif text-3xl sm:text-5xl lg:text-6xl font-bold tracking-tight leading-tight">
+                    WELCOME TO <span class="gold-gradient-text block mt-1">GOFE GUENUT CHURCH YOUTH UNITY</span>
+                </h1>
+                <p class="text-xl sm:text-2xl font-medium italic text-gold-light font-serif">
+                    "United in Faith, Growing in Love, Serving Together."
+                </p>
+                <p class="max-w-3xl mx-auto text-base sm:text-lg text-gray-300 font-light leading-relaxed">
+                    Welcome to our youth community, where faith, friendship, service, and unity bring us together. Join us as we grow spiritually, develop our talents, and serve our community with joy and devotion.
+                </p>
+                <div class="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4">
+                    <a href="#register" class="w-full sm:w-auto bg-gold hover:bg-gold-light text-navy font-bold px-8 py-4 rounded-full shadow-xl hover:shadow-gold/40 transition-all transform hover:-translate-y-1 text-base uppercase tracking-wider text-center">
+                        <i class="fa-solid fa-user-plus mr-2"></i> Register Now
+                    </a>
+                    <a href="#about" class="w-full sm:w-auto bg-transparent hover:bg-white/10 text-white border-2 border-white/80 font-bold px-8 py-3.5 rounded-full transition-all text-base uppercase tracking-wider text-center">
+                        <i class="fa-solid fa-circle-info mr-2"></i> About Our Youth
+                    </a>
+                    <a href="#activities" class="w-full sm:w-auto bg-emerald-600 hover:bg-emerald-500 text-white font-bold px-8 py-3.5 rounded-full shadow-lg transition-all text-base uppercase tracking-wider text-center">
+                        <i class="fa-solid fa-compass mr-2"></i> Explore Activities
+                    </a>
+                </div>
+            </div>
+            <!-- Decorative wave or bottom transition -->
+            <div class="absolute bottom-0 left-0 right-0 h-16 bg-gradient-to-t from-gray-50 to-transparent"></div>
+        </section>
+
+        <!-- STATS BAR -->
+        <section class="bg-navy text-white py-10 border-b border-gold/20">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
+                    <div class="p-4 bg-navy-light/60 rounded-xl border border-gray-800 shadow">
+                        <div class="text-3xl sm:text-4xl font-bold text-gold mb-1" id="stat-members">340+</div>
+                        <div class="text-xs sm:text-sm uppercase tracking-wider text-gray-300">Active Youth Members</div>
+                    </div>
+                    <div class="p-4 bg-navy-light/60 rounded-xl border border-gray-800 shadow">
+                        <div class="text-3xl sm:text-4xl font-bold text-emerald-400 mb-1" id="stat-activities">10+</div>
+                        <div class="text-xs sm:text-sm uppercase tracking-wider text-gray-300">Core Ministries</div>
+                    </div>
+                    <div class="p-4 bg-navy-light/60 rounded-xl border border-gray-800 shadow">
+                        <div class="text-3xl sm:text-4xl font-bold text-gold mb-1" id="stat-events">24+</div>
+                        <div class="text-xs sm:text-sm uppercase tracking-wider text-gray-300">Annual Events</div>
+                    </div>
+                    <div class="p-4 bg-navy-light/60 rounded-xl border border-gray-800 shadow">
+                        <div class="text-3xl sm:text-4xl font-bold text-emerald-400 mb-1">100%</div>
+                        <div class="text-xs sm:text-sm uppercase tracking-wider text-gray-300">Faith & Fellowship</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 7. ABOUT OUR YOUTH -->
+        <section id="about" class="py-20 bg-gray-50">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center max-w-3xl mx-auto mb-16">
+                    <span class="text-emerald-600 font-bold uppercase tracking-widest text-sm">Who We Are</span>
+                    <h2 class="font-serif text-3xl sm:text-4xl font-bold text-navy mt-2 mb-4">About Gofe Guenut Youth Unity</h2>
+                    <p class="text-gray-600 text-base sm:text-lg">Dedicated to nurturing faithful disciples who impact their generation with love, integrity, and godly wisdom.</p>
+                    <div class="w-24 h-1 bg-gold mx-auto mt-4 rounded-full"></div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16">
+                    <!-- Vision Card -->
+                    <div class="bg-white rounded-2xl shadow-xl p-8 border-t-4 border-gold relative overflow-hidden group hover:-translate-y-1 transition-all">
+                        <div class="absolute -right-6 -bottom-6 text-gold/10 text-9xl group-hover:scale-110 transition-transform">
+                            <i class="fa-solid fa-eye"></i>
+                        </div>
+                        <div class="w-14 h-14 rounded-xl bg-gold/20 text-gold flex items-center justify-center text-2xl font-bold mb-6">
+                            <i class="fa-solid fa-binoculars"></i>
+                        </div>
+                        <h3 class="font-serif text-2xl font-bold text-navy mb-3">Our Vision</h3>
+                        <p class="text-gray-700 leading-relaxed text-lg font-light">
+                            To build a spiritually strong, united, responsible, and active generation of Christian youth grounded in biblical truth and equipped for effective leadership in church and society.
+                        </p>
+                    </div>
+
+                    <!-- Mission Card -->
+                    <div class="bg-white rounded-2xl shadow-xl p-8 border-t-4 border-emerald-600 relative overflow-hidden group hover:-translate-y-1 transition-all">
+                        <div class="absolute -right-6 -bottom-6 text-emerald-600/10 text-9xl group-hover:scale-110 transition-transform">
+                            <i class="fa-solid fa-bullseye"></i>
+                        </div>
+                        <div class="w-14 h-14 rounded-xl bg-emerald-100 text-emerald-600 flex items-center justify-center text-2xl font-bold mb-6">
+                            <i class="fa-solid fa-bullseye"></i>
+                        </div>
+                        <h3 class="font-serif text-2xl font-bold text-navy mb-3">Our Mission</h3>
+                        <p class="text-gray-700 leading-relaxed text-lg font-light">
+                            To bring young people together through faith, prayer, fellowship, sound biblical education, compassionate service, and holistic community development.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Core Values -->
+                <div class="bg-navy rounded-3xl p-8 sm:p-12 text-white shadow-2xl relative overflow-hidden">
+                    <div class="absolute inset-0 opacity-5 bg-[radial-gradient(#D4AF37_1px,transparent_1px)] [background-size:16px_16px]"></div>
+                    <div class="text-center max-w-2xl mx-auto mb-10 relative z-10">
+                        <h3 class="font-serif text-3xl font-bold text-gold">Our Core Values</h3>
+                        <p class="text-gray-300 text-sm mt-2">The fundamental pillars that guide our character, relationships, and service.</p>
+                    </div>
+                    <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 sm:gap-6 relative z-10">
+                        <div class="bg-navy-light/80 border border-gold/30 rounded-xl p-5 text-center hover:bg-navy-accent transition-colors">
+                            <i class="fa-solid fa-shield-halved text-gold text-2xl mb-2"></i>
+                            <h4 class="font-bold text-base text-white">Faith</h4>
+                        </div>
+                        <div class="bg-navy-light/80 border border-gold/30 rounded-xl p-5 text-center hover:bg-navy-accent transition-colors">
+                            <i class="fa-solid fa-heart text-gold text-2xl mb-2"></i>
+                            <h4 class="font-bold text-base text-white">Love</h4>
+                        </div>
+                        <div class="bg-navy-light/80 border border-gold/30 rounded-xl p-5 text-center hover:bg-navy-accent transition-colors">
+                            <i class="fa-solid fa-users text-gold text-2xl mb-2"></i>
+                            <h4 class="font-bold text-base text-white">Unity</h4>
+                        </div>
+                        <div class="bg-navy-light/80 border border-gold/30 rounded-xl p-5 text-center hover:bg-navy-accent transition-colors">
+                            <i class="fa-solid fa-hands-praying text-gold text-2xl mb-2"></i>
+                            <h4 class="font-bold text-base text-white">Respect</h4>
+                        </div>
+                        <div class="bg-navy-light/80 border border-gold/30 rounded-xl p-5 text-center hover:bg-navy-accent transition-colors">
+                            <i class="fa-solid fa-hands-holding-child text-gold text-2xl mb-2"></i>
+                            <h4 class="font-bold text-base text-white">Service</h4>
+                        </div>
+                        <div class="bg-navy-light/80 border border-gold/30 rounded-xl p-5 text-center hover:bg-navy-accent transition-colors">
+                            <i class="fa-solid fa-scale-balanced text-gold text-2xl mb-2"></i>
+                            <h4 class="font-bold text-base text-white">Honesty</h4>
+                        </div>
+                        <div class="bg-navy-light/80 border border-gold/30 rounded-xl p-5 text-center hover:bg-navy-accent transition-colors">
+                            <i class="fa-solid fa-award text-gold text-2xl mb-2"></i>
+                            <h4 class="font-bold text-base text-white">Responsibility</h4>
+                        </div>
+                        <div class="bg-navy-light/80 border border-gold/30 rounded-xl p-5 text-center hover:bg-navy-accent transition-colors">
+                            <i class="fa-solid fa-seedling text-gold text-2xl mb-2"></i>
+                            <h4 class="font-bold text-base text-white">Spiritual Growth</h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 5. YOUTH REGISTRATION FORM SECTION -->
+        <section id="register" class="py-20 bg-gradient-to-b from-gray-100 to-white relative">
+            <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-12">
+                    <span class="bg-emerald-100 text-emerald-800 font-bold uppercase tracking-widest text-xs px-3 py-1 rounded-full">Join Our Community</span>
+                    <h2 class="font-serif text-3xl sm:text-4xl font-bold text-navy mt-3 mb-2">Youth Membership Registration</h2>
+                    <p class="text-gray-600 text-sm sm:text-base">Please fill out the form below accurately to register as an official member of Gofe Guenut Church Youth Unity.</p>
+                </div>
+
+                <!-- Registration Card Container -->
+                <div id="registration-form-container" class="bg-white rounded-3xl shadow-2xl border border-gray-200 overflow-hidden">
+                    <div class="bg-navy text-white px-8 py-6 border-b border-gold/30 flex items-center justify-between">
+                        <div>
+                            <h3 class="font-serif text-xl font-bold text-gold">Membership Form</h3>
+                            <p class="text-xs text-gray-300">All fields marked with an asterisk (*) are required.</p>
+                        </div>
+                        <div class="w-10 h-10 rounded-full bg-gold/20 flex items-center justify-center text-gold">
+                            <i class="fa-solid fa-file-pen"></i>
+                        </div>
+                    </div>
+
+                    <form id="youth-reg-form" class="p-6 sm:p-10 space-y-10" novalidate>
+                        
+                        <!-- SECTION 1: Personal Information -->
+                        <div>
+                            <div class="flex items-center space-x-3 pb-3 border-b-2 border-gold mb-6">
+                                <div class="w-8 h-8 rounded-full bg-navy text-gold flex items-center justify-center font-bold text-sm">1</div>
+                                <h4 class="font-serif text-xl font-bold text-navy">Personal Information</h4>
+                            </div>
+
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                                <!-- Full Name -->
+                                <div>
+                                    <label class="block text-sm font-semibold text-gray-700 mb-1">Full Name <span class="text-red-500">*</span></label>
+                                    <input type="text" id="fullName" required placeholder="e.g., Samuel Abebe Kebede" class="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-navy focus:border-navy outline-none transition">
+                                    <p class="text-red-500 text-xs mt-1 hidden" id="err-fullName">Please enter your full name.</p>
+                                </div>
+
+                                <!-- Date of Birth -->
+                                <div>
+                                    <label class="block text-sm font-semibold text-gray-700 mb-1">Date of Birth <span class="text-red-500">*</span></label>
+                                    <input type="date" id="dob" required class="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-navy focus:border-navy outline-none transition">
+                                    <p class="text-red-500 text-xs mt-1 hidden" id="err-dob">Please select your date of birth.</p>
+                                </div>
+
+                                <!-- Gender -->
+                                <div>
+                                    <label class="block text-sm font-semibold text-gray-700 mb-1">Gender <span class="text-red-500">*</span></label>
+                                    <select id="gender" required class="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-navy focus:border-navy outline-none transition bg-white">
+                                        <option value="">Select Gender</option>
+                                        <option value="Male">Male</option>
+                                        <option value="Female">Female</option>
+                                    </select>
+                                    <p class="text-red-500 text-xs mt-1 hidden" id="err-gender">Please select your gender.</p>
+                                </div>
+
+                                <!-- Phone Number -->
+                                <div>
+                                    <label class="block text-sm font-semibold text-gray-700 mb-1">Phone Number <span class="text-red-500">*</span></label>
+                                    <input type="tel" id="phone" required placeholder="+251 9XXXXXXXX" class="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-navy focus:border-navy outline-none transition">
+                                    <p class="text-red-500 text-xs mt-1 hidden" id="err-phone">Please enter a valid phone number.</p>
+                                </div>
+
+                                <!-- Email Address -->
+                                <div>
+                                    <label class="block text-sm font-semibold text-gray-700 mb-1">Email Address (Optional)</label>
+                                    <input type="email" id="email" placeholder="samuel@example.com" class="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-navy focus:border-navy outline-none transition">
+                                </div>
+
+                                <!-- Home Address -->
+                                <div>
+                                    <label class="block text-sm font-semibold text-gray-700 mb-1">Home Address <span class="text-red-500">*</span></label>
+                                    <input type="text" id="address" required placeholder="e.g., Bole Sub City, Woreda 03" class="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-navy focus:border-navy outline-none transition">
+                                    <p class="text-red-500 text-xs mt-1 hidden" id="err-address">Please enter your home address.</p>
+                                </div>
+
+                                <!-- Kebele / Local Area -->
+                                <div>
+                                    <label class="block text-sm font-semibold text-gray-700 mb-1">Kebele / Local Area <span class="text-red-500">*</span></label>
+                                    <input type="text" id="kebele" required placeholder="e.g., Kebele 05 / Gofe Area" class="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-navy focus:border-navy outline-none transition">
+                                    <p class="text-red-500 text-xs mt-1 hidden" id="err-kebele">Please enter your Kebele or local area.</p>
+                                </div>
+
+                                <!-- Profile Photograph Upload -->
+                                <div>
+                                    <label class="block text-sm font-semibold text-gray-700 mb-1">Profile Photograph</label>
+                                    <div class="flex items-center space-x-4">
+                                        <div id="photo-preview-box" class="w-16 h-16 rounded-full bg-gray-200 border-2 border-dashed border-gray-400 flex items-center justify-center overflow-hidden flex-shrink-0">
+                                            <i class="fa-solid fa-user text-gray-400 text-xl" id="photo-placeholder-icon"></i>
+                                            <img id="photo-preview" class="w-full h-full object-cover hidden" alt="Preview">
+                                        </div>
+                                        <div class="flex-grow">
+                                            <input type="file" id="photoFile" accept="image/*" class="w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-navy file:text-gold hover:file:bg-navy-light cursor-pointer">
+                                            <p class="text-xs text-gray-500 mt-1">Upload recent passport-size photo (PNG, JPG).</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- SECTION 2: Church Information -->
+                        <div>
+                            <div class="flex items-center space-x-3 pb-3 border-b-2 border-gold mb-6">
+                                <div class="w-8 h-8 rounded-full bg-navy text-gold flex items-center justify-center font-bold text-sm">2</div>
+                                <h4 class="font-serif text-xl font-bold text-navy">Church Information</h4>
+                            </div>
+
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                                <!-- Church Membership Status -->
+                                <div>
+                                    <label class="block text-sm font-semibold text-gray-700 mb-1">Church Membership Status <span class="text-red-500">*</span></label>
+                                    <select id="membershipStatus" required class="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-navy focus:border-navy outline-none transition bg-white">
+                                        <option value="">Select Status</option>
+                                        <option value="Active Baptized Member">Active Baptized Member</option>
+                                        <option value="Regular Attendee">Regular Attendee</option>
+                                        <option value="Newcomer">Newcomer</option>
+                                    </select>
+                                    <p class="text-red-500 text-xs mt-1 hidden" id="err-membershipStatus">Please select membership status.</p>
+                                </div>
+
+                                <!-- Date of Joining the Church -->
+                                <div>
+                                    <label class="block text-sm font-semibold text-gray-700 mb-1">Date of Joining Church / Approximate</label>
+                                    <input type="date" id="dateJoining" class="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-navy focus:border-navy outline-none transition">
+                                </div>
+
+                                <!-- Youth Group / Department -->
+                                <div>
+                                    <label class="block text-sm font-semibold text-gray-700 mb-1">Youth Group / Department <span class="text-red-500">*</span></label>
+                                    <select id="youthGroup" required class="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-navy focus:border-navy outline-none transition bg-white">
+                                        <option value="">Select Department</option>
+                                        <option value="Prayer & Worship Choir">Prayer & Worship Choir</option>
+                                        <option value="Bible Study Fellowship">Bible Study Fellowship</option>
+                                        <option value="Gospel Outreach Team">Gospel Outreach Team</option>
+                                        <option value="Community Service & Charity">Community Service & Charity</option>
+                                        <option value="Media & Technical Team">Media & Technical Team</option>
+                                        <option value="General Youth Member">General Youth Member</option>
+                                    </select>
+                                    <p class="text-red-500 text-xs mt-1 hidden" id="err-youthGroup">Please select your preferred youth group.</p>
+                                </div>
+
+                                <!-- Church Service Participation -->
+                                <div>
+                                    <label class="block text-sm font-semibold text-gray-700 mb-1">Church Service Participation <span class="text-red-500">*</span></label>
+                                    <input type="text" id="serviceParticipation" required placeholder="e.g., Sunday School Teacher, Usher, Choir" class="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-navy focus:border-navy outline-none transition">
+                                    <p class="text-red-500 text-xs mt-1 hidden" id="err-serviceParticipation">Please specify current service or enter 'None'.</p>
+                                </div>
+
+                                <!-- Baptism Status -->
+                                <div class="sm:col-span-2">
+                                    <label class="block text-sm font-semibold text-gray-700 mb-1">Baptism Status</label>
+                                    <div class="flex items-center space-x-6 pt-2">
+                                        <label class="flex items-center space-x-2 cursor-pointer">
+                                            <input type="radio" name="baptismStatus" value="Baptized" checked class="text-navy focus:ring-navy">
+                                            <span class="text-sm">Water Baptized</span>
+                                        </label>
+                                        <label class="flex items-center space-x-2 cursor-pointer">
+                                            <input type="radio" name="baptismStatus" value="Not Baptized" class="text-navy focus:ring-navy">
+                                            <span class="text-sm">Not Yet Baptized / Seeking Classes</span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- SECTION 3: Educational and Professional Information -->
+                        <div>
+                            <div class="flex items-center space-x-3 pb-3 border-b-2 border-gold mb-6">
+                                <div class="w-8 h-8 rounded-full bg-navy text-gold flex items-center justify-center font-bold text-sm">3</div>
+                                <h4 class="font-serif text-xl font-bold text-navy">Educational & Professional Information</h4>
+                            </div>
+
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                                <!-- Educational Level -->
+                                <div>
+                                    <label class="block text-sm font-semibold text-gray-700 mb-1">Educational Level <span class="text-red-500">*</span></label>
+                                    <select id="educationLevel" required class="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-navy focus:border-navy outline-none transition bg-white">
+                                        <option value="">Select Level</option>
+                                        <option value="High School / Preparatory">High School / Preparatory</option>
+                                        <option value="College Diploma / TVET">College Diploma / TVET</option>
+                                        <option value="University Undergraduate">University Undergraduate</option>
+                                        <option value="Bachelor Degree Graduate">Bachelor Degree Graduate</option>
+                                        <option value="Postgraduate / Masters">Postgraduate / Masters</option>
+                                    </select>
+                                    <p class="text-red-500 text-xs mt-1 hidden" id="err-educationLevel">Please select educational level.</p>
+                                </div>
+
+                                <!-- School / University -->
+                                <div>
+                                    <label class="block text-sm font-semibold text-gray-700 mb-1">School / University (Optional)</label>
+                                    <input type="text" id="school" placeholder="e.g., Addis Ababa University" class="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-navy focus:border-navy outline-none transition">
+                                </div>
+
+                                <!-- Occupation -->
+                                <div>
+                                    <label class="block text-sm font-semibold text-gray-700 mb-1">Current Occupation <span class="text-red-500">*</span></label>
+                                    <input type="text" id="occupation" required placeholder="e.g., Student, Software Engineer, Teacher" class="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-navy focus:border-navy outline-none transition">
+                                    <p class="text-red-500 text-xs mt-1 hidden" id="err-occupation">Please enter your occupation.</p>
+                                </div>
+
+                                <!-- Professional Skills -->
+                                <div>
+                                    <label class="block text-sm font-semibold text-gray-700 mb-1">Professional Skills (Optional)</label>
+                                    <input type="text" id="skills" placeholder="e.g., Accounting, Graphic Design, IT, Plumbing" class="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-navy focus:border-navy outline-none transition">
+                                </div>
+
+                                <!-- Talents and Interests -->
+                                <div class="sm:col-span-2">
+                                    <label class="block text-sm font-semibold text-gray-700 mb-1">Talents and Interests <span class="text-red-500">*</span></label>
+                                    <input type="text" id="talents" required placeholder="e.g., Singing, Playing Instruments (Guitar/Keyboard), Public Speaking, Drama" class="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-navy focus:border-navy outline-none transition">
+                                    <p class="text-red-500 text-xs mt-1 hidden" id="err-talents">Please list your talents or interests.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- SECTION 4: Emergency Contact -->
+                        <div>
+                            <div class="flex items-center space-x-3 pb-3 border-b-2 border-gold mb-6">
+                                <div class="w-8 h-8 rounded-full bg-navy text-gold flex items-center justify-center font-bold text-sm">4</div>
+                                <h4 class="font-serif text-xl font-bold text-navy">Emergency Contact</h4>
+                            </div>
+
+                            <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
+                                <!-- Emergency Contact Name -->
+                                <div>
+                                    <label class="block text-sm font-semibold text-gray-700 mb-1">Contact Name <span class="text-red-500">*</span></label>
+                                    <input type="text" id="emergencyName" required placeholder="Full Name" class="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-navy focus:border-navy outline-none transition">
+                                    <p class="text-red-500 text-xs mt-1 hidden" id="err-emergencyName">Required.</p>
+                                </div>
+
+                                <!-- Relationship -->
+                                <div>
+                                    <label class="block text-sm font-semibold text-gray-700 mb-1">Relationship <span class="text-red-500">*</span></label>
+                                    <input type="text" id="emergencyRelation" required placeholder="e.g., Father, Mother, Sibling" class="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-navy focus:border-navy outline-none transition">
+                                    <p class="text-red-500 text-xs mt-1 hidden" id="err-emergencyRelation">Required.</p>
+                                </div>
+
+                                <!-- Emergency Phone Number -->
+                                <div>
+                                    <label class="block text-sm font-semibold text-gray-700 mb-1">Phone Number <span class="text-red-500">*</span></label>
+                                    <input type="tel" id="emergencyPhone" required placeholder="+251 9XXXXXXXX" class="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-navy focus:border-navy outline-none transition">
+                                    <p class="text-red-500 text-xs mt-1 hidden" id="err-emergencyPhone">Required.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- SECTION 5: Additional Information -->
+                        <div>
+                            <div class="flex items-center space-x-3 pb-3 border-b-2 border-gold mb-6">
+                                <div class="w-8 h-8 rounded-full bg-navy text-gold flex items-center justify-center font-bold text-sm">5</div>
+                                <h4 class="font-serif text-xl font-bold text-navy">Additional Information & Motivation</h4>
+                            </div>
+
+                            <div class="space-y-6">
+                                <div>
+                                    <label class="block text-sm font-semibold text-gray-700 mb-1">Why do you want to join Gofe Guenut Church Youth Unity? <span class="text-red-500">*</span></label>
+                                    <textarea id="motivation" rows="3" required placeholder="Share your motivation for joining our youth fellowship..." class="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-navy focus:border-navy outline-none transition"></textarea>
+                                    <p class="text-red-500 text-xs mt-1 hidden" id="err-motivation">Please share your motivation.</p>
+                                </div>
+
+                                <div>
+                                    <label class="block text-sm font-semibold text-gray-700 mb-1">Additional Comments or Prayer Requests</label>
+                                    <textarea id="comments" rows="2" placeholder="Any additional details, questions, or prayer requests..." class="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-navy focus:border-navy outline-none transition"></textarea>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- SECTION 6: Agreement & Privacy -->
+                        <div class="bg-gray-50 p-6 rounded-2xl border border-gray-200">
+                            <div class="flex items-start space-x-3">
+                                <input type="checkbox" id="agreePolicy" required class="mt-1 h-5 w-5 text-navy rounded border-gray-300 focus:ring-navy cursor-pointer">
+                                <label for="agreePolicy" class="text-sm text-gray-700 cursor-pointer">
+                                    <span class="font-semibold text-navy">I confirm</span> that the information I have provided is accurate and I agree to the church youth organization's membership guidelines, code of conduct, and data privacy policies. We collect this data solely for church community management.
+                                </label>
+                            </div>
+                            <p class="text-red-500 text-xs mt-2 hidden" id="err-agreePolicy">You must agree to the terms and privacy policy to submit.</p>
+                        </div>
+
+                        <!-- Backend Notice -->
+                        <div class="bg-amber-50 border-l-4 border-amber-500 p-4 text-xs text-amber-800 rounded-r-xl">
+                            <p class="font-bold"><i class="fa-solid fa-triangle-exclamation mr-1"></i> Note on Backend Integration:</p>
+                            <p class="mt-0.5">This is a demonstration client-side portal. In production, submissions are securely processed through a Node.js/Express backend and stored in a protected database with encrypted role-based access control.</p>
+                        </div>
+
+                        <!-- Submit Button -->
+                        <div class="text-center pt-4">
+                            <button type="submit" id="submit-btn" class="w-full sm:w-auto bg-gradient-to-r from-gold to-gold-dark hover:from-gold-light hover:to-gold text-navy font-bold text-lg px-12 py-4 rounded-full shadow-xl hover:shadow-gold/50 transition-all transform hover:-translate-y-1 uppercase tracking-wider">
+                                <i class="fa-solid fa-paper-plane mr-2"></i> Submit Registration
+                            </button>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- SUCCESS SCREEN (Hidden by default) -->
+                <div id="success-screen" class="hidden bg-white rounded-3xl shadow-2xl border border-emerald-500 p-8 sm:p-12 text-center space-y-6">
+                    <div class="w-20 h-20 bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center text-4xl mx-auto shadow-inner animate-bounce">
+                        <i class="fa-solid fa-circle-check"></i>
+                    </div>
+                    <div>
+                        <span class="bg-emerald-100 text-emerald-800 font-bold uppercase tracking-widest text-xs px-3 py-1 rounded-full">Registration Successful</span>
+                        <h3 class="font-serif text-3xl sm:text-4xl font-bold text-navy mt-3">CONGRATULATIONS!</h3>
+                        <p class="text-gray-600 text-lg mt-2">Your registration has been successfully received and recorded in our youth community system.</p>
+                    </div>
+
+                    <!-- Confirmation Details Box -->
+                    <div class="max-w-xl mx-auto bg-gray-50 rounded-2xl p-6 border border-gray-200 text-left space-y-3">
+                        <div class="flex justify-between border-b pb-2">
+                            <span class="text-gray-500 text-sm">Full Name:</span>
+                            <span class="font-bold text-navy" id="conf-name">Samuel Abebe</span>
+                        </div>
+                        <div class="flex justify-between border-b pb-2">
+                            <span class="text-gray-500 text-sm">Reference Number:</span>
+                            <span class="font-mono font-bold text-gold-dark" id="conf-ref">GG-YOUTH-2026-9842</span>
+                        </div>
+                        <div class="flex justify-between border-b pb-2">
+                            <span class="text-gray-500 text-sm">Department / Group:</span>
+                            <span class="font-medium text-gray-800" id="conf-group">Prayer & Worship Choir</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-gray-500 text-sm">Registration Date:</span>
+                            <span class="font-medium text-gray-800" id="conf-date">October 24, 2026</span>
+                        </div>
+                    </div>
+
+                    <p class="text-sm text-gray-500 max-w-md mx-auto">Please save or print your confirmation details. Present this reference number when attending your first youth fellowship orientation.</p>
+
+                    <div class="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4">
+                        <button onclick="window.print()" class="w-full sm:w-auto bg-navy hover:bg-navy-light text-white font-bold px-8 py-3.5 rounded-full shadow-lg transition-all flex items-center justify-center">
+                            <i class="fa-solid fa-print mr-2"></i> Print Confirmation
+                        </button>
+                        <button onclick="resetRegistrationForm()" class="w-full sm:w-auto bg-gray-200 hover:bg-gray-300 text-navy font-bold px-8 py-3.5 rounded-full transition-all flex items-center justify-center">
+                            <i class="fa-solid fa-rotate-left mr-2"></i> Register Another Member
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 8. YOUTH ACTIVITIES SECTION -->
+        <section id="activities" class="py-20 bg-white">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center max-w-3xl mx-auto mb-16">
+                    <span class="text-gold-dark font-bold uppercase tracking-widest text-sm">What We Do</span>
+                    <h2 class="font-serif text-3xl sm:text-4xl font-bold text-navy mt-2 mb-4">Youth Activities & Ministries</h2>
+                    <p class="text-gray-600 text-base sm:text-lg">Discover our diverse programs designed to build your faith, sharpen your talents, and foster Christian fellowship.</p>
+                    <div class="w-24 h-1 bg-gold mx-auto mt-4 rounded-full"></div>
+                </div>
+
+                <!-- 10 Activity Cards -->
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <!-- 1 -->
+                    <div class="bg-gray-50 rounded-2xl p-8 border border-gray-200 hover:border-gold hover:shadow-xl transition-all group flex flex-col justify-between">
+                        <div>
+                            <div class="w-14 h-14 rounded-2xl bg-navy text-gold flex items-center justify-center text-2xl font-bold mb-6 group-hover:bg-gold group-hover:text-navy transition-colors">
+                                <i class="fa-solid fa-hands-praying"></i>
+                            </div>
+                            <h3 class="font-serif text-xl font-bold text-navy mb-2">1. Prayer and Worship</h3>
+                            <p class="text-gray-600 text-sm leading-relaxed mb-6">Deepening our intimacy with God through fervent weekly prayer sessions, tarrying nights, and spirit-filled worship.</p>
+                        </div>
+                        <button onclick="openActivityModal('Prayer and Worship', 'Deepening our intimacy with God through fervent weekly prayer sessions, tarrying nights, and spirit-filled worship. Join us every Friday at 5:30 PM in the Main Sanctuary.')" class="text-navy font-bold text-sm inline-flex items-center group-hover:text-gold-dark transition-colors">
+                            Learn More <i class="fa-solid fa-arrow-right ml-2 text-xs"></i>
+                        </button>
+                    </div>
+
+                    <!-- 2 -->
+                    <div class="bg-gray-50 rounded-2xl p-8 border border-gray-200 hover:border-gold hover:shadow-xl transition-all group flex flex-col justify-between">
+                        <div>
+                            <div class="w-14 h-14 rounded-2xl bg-navy text-gold flex items-center justify-center text-2xl font-bold mb-6 group-hover:bg-gold group-hover:text-navy transition-colors">
+                                <i class="fa-solid fa-book-bible"></i>
+                            </div>
+                            <h3 class="font-serif text-xl font-bold text-navy mb-2">2. Bible Study</h3>
+                            <p class="text-gray-600 text-sm leading-relaxed mb-6">Systematic study of the Holy Scriptures to build strong doctrinal foundations and practical life wisdom for youth.</p>
+                        </div>
+                        <button onclick="openActivityModal('Bible Study', 'Systematic study of the Holy Scriptures to build strong doctrinal foundations and practical life wisdom for youth. Interactive Q&A and book-by-book exploration every Wednesday.')" class="text-navy font-bold text-sm inline-flex items-center group-hover:text-gold-dark transition-colors">
+                            Learn More <i class="fa-solid fa-arrow-right ml-2 text-xs"></i>
+                        </button>
+                    </div>
+
+                    <!-- 3 -->
+                    <div class="bg-gray-50 rounded-2xl p-8 border border-gray-200 hover:border-gold hover:shadow-xl transition-all group flex flex-col justify-between">
+                        <div>
+                            <div class="w-14 h-14 rounded-2xl bg-navy text-gold flex items-center justify-center text-2xl font-bold mb-6 group-hover:bg-gold group-hover:text-navy transition-colors">
+                                <i class="fa-solid fa-people-group"></i>
+                            </div>
+                            <h3 class="font-serif text-xl font-bold text-navy mb-2">3. Youth Fellowship</h3>
+                            <p class="text-gray-600 text-sm leading-relaxed mb-6">Dynamic Saturday gatherings featuring testimonies, Christian Q&A panels, godly discussions, and heartwarming socialization.</p>
+                        </div>
+                        <button onclick="openActivityModal('Youth Fellowship', 'Dynamic Saturday gatherings featuring testimonies, Christian Q&A panels, godly discussions, and heartwarming socialization. Every Saturday at 3:00 PM.')" class="text-navy font-bold text-sm inline-flex items-center group-hover:text-gold-dark transition-colors">
+                            Learn More <i class="fa-solid fa-arrow-right ml-2 text-xs"></i>
+                        </button>
+                    </div>
+
+                    <!-- 4 -->
+                    <div class="bg-gray-50 rounded-2xl p-8 border border-gray-200 hover:border-gold hover:shadow-xl transition-all group flex flex-col justify-between">
+                        <div>
+                            <div class="w-14 h-14 rounded-2xl bg-navy text-gold flex items-center justify-center text-2xl font-bold mb-6 group-hover:bg-gold group-hover:text-navy transition-colors">
+                                <i class="fa-solid fa-bullhorn"></i>
+                            </div>
+                            <h3 class="font-serif text-xl font-bold text-navy mb-2">4. Gospel Outreach</h3>
+                            <p class="text-gray-600 text-sm leading-relaxed mb-6">Taking the Good News of Jesus Christ to neighborhoods, schools, campuses, and surrounding towns through evangelism.</p>
+                        </div>
+                        <button onclick="openActivityModal('Gospel Outreach', 'Taking the Good News of Jesus Christ to neighborhoods, schools, campuses, and surrounding towns through evangelism campaigns and tract distribution.')" class="text-navy font-bold text-sm inline-flex items-center group-hover:text-gold-dark transition-colors">
+                            Learn More <i class="fa-solid fa-arrow-right ml-2 text-xs"></i>
+                        </button>
+                    </div>
+
+                    <!-- 5 -->
+                    <div class="bg-gray-50 rounded-2xl p-8 border border-gray-200 hover:border-gold hover:shadow-xl transition-all group flex flex-col justify-between">
+                        <div>
+                            <div class="w-14 h-14 rounded-2xl bg-navy text-gold flex items-center justify-center text-2xl font-bold mb-6 group-hover:bg-gold group-hover:text-navy transition-colors">
+                                <i class="fa-solid fa-hand-holding-heart"></i>
+                            </div>
+                            <h3 class="font-serif text-xl font-bold text-navy mb-2">5. Community Service</h3>
+                            <p class="text-gray-600 text-sm leading-relaxed mb-6">Demonstrating Christ’s love in action by supporting vulnerable families, cleaning neighborhoods, and charity drives.</p>
+                        </div>
+                        <button onclick="openActivityModal('Community Service', 'Demonstrating Christ’s love in action by supporting vulnerable families, elderly care, cleaning neighborhoods, and seasonal charity drives.')" class="text-navy font-bold text-sm inline-flex items-center group-hover:text-gold-dark transition-colors">
+                            Learn More <i class="fa-solid fa-arrow-right ml-2 text-xs"></i>
+                        </button>
+                    </div>
+
+                    <!-- 6 -->
+                    <div class="bg-gray-50 rounded-2xl p-8 border border-gray-200 hover:border-gold hover:shadow-xl transition-all group flex flex-col justify-between">
+                        <div>
+                            <div class="w-14 h-14 rounded-2xl bg-navy text-gold flex items-center justify-center text-2xl font-bold mb-6 group-hover:bg-gold group-hover:text-navy transition-colors">
+                                <i class="fa-solid fa-music"></i>
+                            </div>
+                            <h3 class="font-serif text-xl font-bold text-navy mb-2">6. Choir and Music</h3>
+                            <p class="text-gray-600 text-sm leading-relaxed mb-6">Training talented youth voices and instrumentalists to lead the congregation into profound worship during Sunday services.</p>
+                        </div>
+                        <button onclick="openActivityModal('Choir and Music', 'Training talented youth voices and instrumentalists to lead the congregation into profound worship during Sunday services and special youth programs.')" class="text-navy font-bold text-sm inline-flex items-center group-hover:text-gold-dark transition-colors">
+                            Learn More <i class="fa-solid fa-arrow-right ml-2 text-xs"></i>
+                        </button>
+                    </div>
+
+                    <!-- 7 -->
+                    <div class="bg-gray-50 rounded-2xl p-8 border border-gray-200 hover:border-gold hover:shadow-xl transition-all group flex flex-col justify-between">
+                        <div>
+                            <div class="w-14 h-14 rounded-2xl bg-navy text-gold flex items-center justify-center text-2xl font-bold mb-6 group-hover:bg-gold group-hover:text-navy transition-colors">
+                                <i class="fa-solid fa-chess-queen"></i>
+                            </div>
+                            <h3 class="font-serif text-xl font-bold text-navy mb-2">7. Youth Leadership</h3>
+                            <p class="text-gray-600 text-sm leading-relaxed mb-6">Mentoring upcoming leaders with integrity, godly character, administrative skills, and stewardship principles.</p>
+                        </div>
+                        <button onclick="openActivityModal('Youth Leadership', 'Mentoring upcoming leaders with integrity, godly character, administrative skills, and stewardship principles through workshops and practical assignments.')" class="text-navy font-bold text-sm inline-flex items-center group-hover:text-gold-dark transition-colors">
+                            Learn More <i class="fa-solid fa-arrow-right ml-2 text-xs"></i>
+                        </button>
+                    </div>
+
+                    <!-- 8 -->
+                    <div class="bg-gray-50 rounded-2xl p-8 border border-gray-200 hover:border-gold hover:shadow-xl transition-all group flex flex-col justify-between">
+                        <div>
+                            <div class="w-14 h-14 rounded-2xl bg-navy text-gold flex items-center justify-center text-2xl font-bold mb-6 group-hover:bg-gold group-hover:text-navy transition-colors">
+                                <i class="fa-solid fa-graduation-cap"></i>
+                            </div>
+                            <h3 class="font-serif text-xl font-bold text-navy mb-2">8. Educational Support</h3>
+                            <p class="text-gray-600 text-sm leading-relaxed mb-6">Tutorial programs, career guidance, and academic mentorship to help students excel in school and university.</p>
+                        </div>
+                        <button onclick="openActivityModal('Educational Support', 'Tutorial programs, career guidance, and academic mentorship to help students excel in school, national exams, and university studies.')" class="text-navy font-bold text-sm inline-flex items-center group-hover:text-gold-dark transition-colors">
+                            Learn More <i class="fa-solid fa-arrow-right ml-2 text-xs"></i>
+                        </button>
+                    </div>
+
+                    <!-- 9 -->
+                    <div class="bg-gray-50 rounded-2xl p-8 border border-gray-200 hover:border-gold hover:shadow-xl transition-all group flex flex-col justify-between">
+                        <div>
+                            <div class="w-14 h-14 rounded-2xl bg-navy text-gold flex items-center justify-center text-2xl font-bold mb-6 group-hover:bg-gold group-hover:text-navy transition-colors">
+                                <i class="fa-solid fa-futbol"></i>
+                            </div>
+                            <h3 class="font-serif text-xl font-bold text-navy mb-2">9. Sports and Recreation</h3>
+                            <p class="text-gray-600 text-sm leading-relaxed mb-6">Fostering teamwork, physical fitness, and healthy friendships through football tournaments, indoor games, and picnics.</p>
+                        </div>
+                        <button onclick="openActivityModal('Sports and Recreation', 'Fostering teamwork, physical fitness, and healthy friendships through friendly football tournaments, indoor games, and annual youth picnics.')" class="text-navy font-bold text-sm inline-flex items-center group-hover:text-gold-dark transition-colors">
+                            Learn More <i class="fa-solid fa-arrow-right ml-2 text-xs"></i>
+                        </button>
+                    </div>
+
+                    <!-- 10 -->
+                    <div class="bg-gray-50 rounded-2xl p-8 border border-gray-200 hover:border-gold hover:shadow-xl transition-all group flex flex-col justify-between">
+                        <div>
+                            <div class="w-14 h-14 rounded-2xl bg-navy text-gold flex items-center justify-center text-2xl font-bold mb-6 group-hover:bg-gold group-hover:text-navy transition-colors">
+                                <i class="fa-solid fa-seedling"></i>
+                            </div>
+                            <h3 class="font-serif text-xl font-bold text-navy mb-2">10. Spiritual Development</h3>
+                            <p class="text-gray-600 text-sm leading-relaxed mb-6">Discipleship classes, baptism counseling, and spiritual retreats designed for lifelong devotion to Jesus Christ.</p>
+                        </div>
+                        <button onclick="openActivityModal('Spiritual Development', 'Discipleship classes, baptism counseling, and spiritual retreats designed for lifelong devotion to Jesus Christ and victorious Christian living.')" class="text-navy font-bold text-sm inline-flex items-center group-hover:text-gold-dark transition-colors">
+                            Learn More <i class="fa-solid fa-arrow-right ml-2 text-xs"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 9. UPCOMING EVENTS SECTION -->
+        <section id="events" class="py-20 bg-gray-50">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center max-w-3xl mx-auto mb-12">
+                    <span class="text-emerald-600 font-bold uppercase tracking-widest text-sm">Mark Your Calendar</span>
+                    <h2 class="font-serif text-3xl sm:text-4xl font-bold text-navy mt-2 mb-4">Upcoming Youth Events</h2>
+                    <p class="text-gray-600 text-base sm:text-lg">Join us in our upcoming conferences, prayer meetings, and special celebrations.</p>
+                    <div class="w-24 h-1 bg-gold mx-auto mt-4 rounded-full"></div>
+                </div>
+
+                <!-- Event Category Filter Buttons -->
+                <div class="flex flex-wrap justify-center gap-2 mb-10">
+                    <button onclick="filterEvents('all')" class="event-filter-btn px-5 py-2 rounded-full font-medium text-sm bg-navy text-white transition shadow">All Events</button>
+                    <button onclick="filterEvents('Conference')" class="event-filter-btn px-5 py-2 rounded-full font-medium text-sm bg-white text-gray-700 hover:bg-gray-100 transition shadow">Conferences</button>
+                    <button onclick="filterEvents('Prayer')" class="event-filter-btn px-5 py-2 rounded-full font-medium text-sm bg-white text-gray-700 hover:bg-gray-100 transition shadow">Prayer Meetings</button>
+                    <button onclick="filterEvents('Seminar')" class="event-filter-btn px-5 py-2 rounded-full font-medium text-sm bg-white text-gray-700 hover:bg-gray-100 transition shadow">Seminars</button>
+                    <button onclick="filterEvents('Community')" class="event-filter-btn px-5 py-2 rounded-full font-medium text-sm bg-white text-gray-700 hover:bg-gray-100 transition shadow">Community Service</button>
+                </div>
+
+                <!-- Events Grid -->
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="events-grid">
+                    <!-- Event 1 -->
+                    <div class="event-card bg-white rounded-2xl overflow-hidden shadow-lg border border-gray-200 flex flex-col" data-category="Conference">
+                        <div class="relative h-48 overflow-hidden">
+                            <img src="https://images.unsplash.com/photo-1540575467063-178a50c2df87?auto=format&fit=crop&w=800&q=80" alt="Annual Youth Conference" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500">
+                            <span class="absolute top-4 right-4 bg-gold text-navy font-bold text-xs px-3 py-1 rounded-full uppercase shadow">Conference</span>
+                        </div>
+                        <div class="p-6 flex-grow flex flex-col justify-between space-y-4">
+                            <div>
+                                <h3 class="font-serif text-xl font-bold text-navy mb-2">Annual Youth Unity Conference 2026</h3>
+                                <p class="text-gray-600 text-sm line-clamp-2">A 3-day transformative gathering with powerful preaching, inspiring worship, workshops, and youth networking.</p>
+                            </div>
+                            <div class="space-y-2 text-xs text-gray-500 border-t pt-4">
+                                <div class="flex items-center"><i class="fa-solid fa-calendar text-gold mr-2 w-4"></i> November 28 - 30, 2026</div>
+                                <div class="flex items-center"><i class="fa-solid fa-clock text-gold mr-2 w-4"></i> 9:00 AM - 5:00 PM Daily</div>
+                                <div class="flex items-center"><i class="fa-solid fa-location-dot text-gold mr-2 w-4"></i> Gofe Guenut Main Sanctuary</div>
+                            </div>
+                            <button onclick="openEventModal('Annual Youth Unity Conference 2026', 'November 28 - 30, 2026', '9:00 AM - 5:00 PM Daily', 'Gofe Guenut Main Sanctuary', 'A 3-day transformative gathering with powerful preaching, inspiring worship, workshops, and youth networking. Guest speakers and choir performances.')" class="w-full bg-navy hover:bg-navy-light text-white font-semibold py-2.5 rounded-xl text-sm transition">
+                                View Details & RSVP
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Event 2 -->
+                    <div class="event-card bg-white rounded-2xl overflow-hidden shadow-lg border border-gray-200 flex flex-col" data-category="Prayer">
+                        <div class="relative h-48 overflow-hidden">
+                            <img src="https://images.unsplash.com/photo-1438232992991-995b7058bbb3?auto=format&fit=crop&w=800&q=80" alt="Night of Prayer" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500">
+                            <span class="absolute top-4 right-4 bg-emerald-600 text-white font-bold text-xs px-3 py-1 rounded-full uppercase shadow">Prayer</span>
+                        </div>
+                        <div class="p-6 flex-grow flex flex-col justify-between space-y-4">
+                            <div>
+                                <h3 class="font-serif text-xl font-bold text-navy mb-2">All-Night Intercession & Revival</h3>
+                                <p class="text-gray-600 text-sm line-clamp-2">An extraordinary night of crying out to God for personal renewal, church awakening, and national peace.</p>
+                            </div>
+                            <div class="space-y-2 text-xs text-gray-500 border-t pt-4">
+                                <div class="flex items-center"><i class="fa-solid fa-calendar text-emerald-600 mr-2 w-4"></i> December 5, 2026</div>
+                                <div class="flex items-center"><i class="fa-solid fa-clock text-emerald-600 mr-2 w-4"></i> 9:00 PM - 5:00 AM</div>
+                                <div class="flex items-center"><i class="fa-solid fa-location-dot text-emerald-600 mr-2 w-4"></i> Prayer Chapel</div>
+                            </div>
+                            <button onclick="openEventModal('All-Night Intercession & Revival', 'December 5, 2026', '9:00 PM - 5:00 AM', 'Prayer Chapel', 'An extraordinary night of crying out to God for personal renewal, church awakening, and national peace. Refreshments served.')" class="w-full bg-navy hover:bg-navy-light text-white font-semibold py-2.5 rounded-xl text-sm transition">
+                                View Details & RSVP
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Event 3 -->
+                    <div class="event-card bg-white rounded-2xl overflow-hidden shadow-lg border border-gray-200 flex flex-col" data-category="Seminar">
+                        <div class="relative h-48 overflow-hidden">
+                            <img src="https://images.unsplash.com/photo-1524178232363-1fb2b075b655?auto=format&fit=crop&w=800&q=80" alt="Youth Seminar" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500">
+                            <span class="absolute top-4 right-4 bg-blue-600 text-white font-bold text-xs px-3 py-1 rounded-full uppercase shadow">Seminar</span>
+                        </div>
+                        <div class="p-6 flex-grow flex flex-col justify-between space-y-4">
+                            <div>
+                                <h3 class="font-serif text-xl font-bold text-navy mb-2">Christian Youth Leadership Seminar</h3>
+                                <p class="text-gray-600 text-sm line-clamp-2">Equipping young adults with Biblical principles of financial stewardship, career ethics, and servant leadership.</p>
+                            </div>
+                            <div class="space-y-2 text-xs text-gray-500 border-t pt-4">
+                                <div class="flex items-center"><i class="fa-solid fa-calendar text-blue-600 mr-2 w-4"></i> December 12, 2026</div>
+                                <div class="flex items-center"><i class="fa-solid fa-clock text-blue-600 mr-2 w-4"></i> 2:00 PM - 6:00 PM</div>
+                                <div class="flex items-center"><i class="fa-solid fa-location-dot text-blue-600 mr-2 w-4"></i> Church Conference Hall</div>
+                            </div>
+                            <button onclick="openEventModal('Christian Youth Leadership Seminar', 'December 12, 2026', '2:00 PM - 6:00 PM', 'Church Conference Hall', 'Equipping young adults with Biblical principles of financial stewardship, career ethics, and servant leadership. Open to all registered members.')" class="w-full bg-navy hover:bg-navy-light text-white font-semibold py-2.5 rounded-xl text-sm transition">
+                                View Details & RSVP
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Event 4 -->
+                    <div class="event-card bg-white rounded-2xl overflow-hidden shadow-lg border border-gray-200 flex flex-col" data-category="Community">
+                        <div class="relative h-48 overflow-hidden">
+                            <img src="https://images.unsplash.com/photo-1593113598332-cd288d649433?auto=format&fit=crop&w=800&q=80" alt="Community Outreach" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500">
+                            <span class="absolute top-4 right-4 bg-emerald-600 text-white font-bold text-xs px-3 py-1 rounded-full uppercase shadow">Community</span>
+                        </div>
+                        <div class="p-6 flex-grow flex flex-col justify-between space-y-4">
+                            <div>
+                                <h3 class="font-serif text-xl font-bold text-navy mb-2">Christmas Charity & Gift Distribution</h3>
+                                <p class="text-gray-600 text-sm line-clamp-2">Bringing joy to underprivileged children and elderly members of our community with food packages and gifts.</p>
+                            </div>
+                            <div class="space-y-2 text-xs text-gray-500 border-t pt-4">
+                                <div class="flex items-center"><i class="fa-solid fa-calendar text-emerald-600 mr-2 w-4"></i> December 24, 2026</div>
+                                <div class="flex items-center"><i class="fa-solid fa-clock text-emerald-600 mr-2 w-4"></i> 9:00 AM - 1:00 PM</div>
+                                <div class="flex items-center"><i class="fa-solid fa-location-dot text-emerald-600 mr-2 w-4"></i> Gofe Neighborhood Center</div>
+                            </div>
+                            <button onclick="openEventModal('Christmas Charity & Gift Distribution', 'December 24, 2026', '9:00 AM - 1:00 PM', 'Gofe Neighborhood Center', 'Bringing joy to underprivileged children and elderly members of our community with food packages, clothing, and gifts. Volunteers needed.')" class="w-full bg-navy hover:bg-navy-light text-white font-semibold py-2.5 rounded-xl text-sm transition">
+                                View Details & RSVP
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 10. YOUTH GALLERY -->
+        <section id="gallery" class="py-20 bg-white">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center max-w-3xl mx-auto mb-12">
+                    <span class="text-gold-dark font-bold uppercase tracking-widest text-sm">Our Memories</span>
+                    <h2 class="font-serif text-3xl sm:text-4xl font-bold text-navy mt-2 mb-4">Youth Gallery</h2>
+                    <p class="text-gray-600 text-base sm:text-lg">Glimpses of fellowship, worship, conferences, choir ministrations, and community service.</p>
+                    <div class="w-24 h-1 bg-gold mx-auto mt-4 rounded-full"></div>
+                </div>
+
+                <!-- Gallery Grid -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <!-- Gallery Item 1 -->
+                    <div class="group relative rounded-2xl overflow-hidden shadow-lg cursor-pointer h-72 bg-gray-200" onclick="openLightbox('https://images.unsplash.com/photo-1511632765486-a01980e01a18?auto=format&fit=crop&w=1200&q=80', 'Youth Fellowship & Worship Gathering')">
+                        <img src="https://images.unsplash.com/photo-1511632765486-a01980e01a18?auto=format&fit=crop&w=800&q=80" alt="Fellowship" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                        <div class="absolute inset-0 bg-gradient-to-t from-navy/90 via-navy/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex flex-col justify-end p-6 text-white">
+                            <span class="text-xs text-gold uppercase tracking-wider font-semibold">Fellowship</span>
+                            <h4 class="font-serif text-lg font-bold">Youth Fellowship & Worship Gathering</h4>
+                        </div>
+                    </div>
+
+                    <!-- Gallery Item 2 -->
+                    <div class="group relative rounded-2xl overflow-hidden shadow-lg cursor-pointer h-72 bg-gray-200" onclick="openLightbox('https://images.unsplash.com/photo-1469571486292-0ba58a3f068b?auto=format&fit=crop&w=1200&q=80', 'Community Service & Outreach')">
+                        <img src="https://images.unsplash.com/photo-1469571486292-0ba58a3f068b?auto=format&fit=crop&w=800&q=80" alt="Community Service" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                        <div class="absolute inset-0 bg-gradient-to-t from-navy/90 via-navy/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex flex-col justify-end p-6 text-white">
+                            <span class="text-xs text-gold uppercase tracking-wider font-semibold">Service</span>
+                            <h4 class="font-serif text-lg font-bold">Community Service & Outreach</h4>
+                        </div>
+                    </div>
+
+                    <!-- Gallery Item 3 -->
+                    <div class="group relative rounded-2xl overflow-hidden shadow-lg cursor-pointer h-72 bg-gray-200" onclick="openLightbox('https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?auto=format&fit=crop&w=1200&q=80', 'Choir & Musical Ministration')">
+                        <img src="https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?auto=format&fit=crop&w=800&q=80" alt="Choir" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                        <div class="absolute inset-0 bg-gradient-to-t from-navy/90 via-navy/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex flex-col justify-end p-6 text-white">
+                            <span class="text-xs text-gold uppercase tracking-wider font-semibold">Choir</span>
+                            <h4 class="font-serif text-lg font-bold">Choir & Musical Ministration</h4>
+                        </div>
+                    </div>
+
+                    <!-- Gallery Item 4 -->
+                    <div class="group relative rounded-2xl overflow-hidden shadow-lg cursor-pointer h-72 bg-gray-200" onclick="openLightbox('https://images.unsplash.com/photo-1523580494863-6f3031224c94?auto=format&fit=crop&w=1200&q=80', 'Bible Study & Discipleship Class')">
+                        <img src="https://images.unsplash.com/photo-1523580494863-6f3031224c94?auto=format&fit=crop&w=800&q=80" alt="Bible Study" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                        <div class="absolute inset-0 bg-gradient-to-t from-navy/90 via-navy/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex flex-col justify-end p-6 text-white">
+                            <span class="text-xs text-gold uppercase tracking-wider font-semibold">Study</span>
+                            <h4 class="font-serif text-lg font-bold">Bible Study & Discipleship Class</h4>
+                        </div>
+                    </div>
+
+                    <!-- Gallery Item 5 -->
+                    <div class="group relative rounded-2xl overflow-hidden shadow-lg cursor-pointer h-72 bg-gray-200" onclick="openLightbox('https://images.unsplash.com/photo-1540575467063-178a50c2df87?auto=format&fit=crop&w=1200&q=80', 'Annual Youth Unity Conference')">
+                        <img src="https://images.unsplash.com/photo-1540575467063-178a50c2df87?auto=format&fit=crop&w=800&q=80" alt="Conference" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                        <div class="absolute inset-0 bg-gradient-to-t from-navy/90 via-navy/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex flex-col justify-end p-6 text-white">
+                            <span class="text-xs text-gold uppercase tracking-wider font-semibold">Conference</span>
+                            <h4 class="font-serif text-lg font-bold">Annual Youth Unity Conference</h4>
+                        </div>
+                    </div>
+
+                    <!-- Gallery Item 6 -->
+                    <div class="group relative rounded-2xl overflow-hidden shadow-lg cursor-pointer h-72 bg-gray-200" onclick="openLightbox('https://images.unsplash.com/photo-1517486808906-6ca8b3f04846?auto=format&fit=crop&w=1200&q=80', 'Youth Sports & Team Building')">
+                        <img src="https://images.unsplash.com/photo-1517486808906-6ca8b3f04846?auto=format&fit=crop&w=800&q=80" alt="Sports" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                        <div class="absolute inset-0 bg-gradient-to-t from-navy/90 via-navy/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex flex-col justify-end p-6 text-white">
+                            <span class="text-xs text-gold uppercase tracking-wider font-semibold">Recreation</span>
+                            <h4 class="font-serif text-lg font-bold">Youth Sports & Team Building</h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 11. YOUTH LEADERSHIP SECTION -->
+        <section id="leadership" class="py-20 bg-gray-50">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center max-w-3xl mx-auto mb-16">
+                    <span class="text-emerald-600 font-bold uppercase tracking-widest text-sm">Servant Leaders</span>
+                    <h2 class="font-serif text-3xl sm:text-4xl font-bold text-navy mt-2 mb-4">Youth Leadership Team</h2>
+                    <p class="text-gray-600 text-base sm:text-lg">Meet the dedicated leaders appointed to guide, mentor, and serve the Gofe Guenut Church Youth Unity.</p>
+                    <div class="w-24 h-1 bg-gold mx-auto mt-4 rounded-full"></div>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+                    <!-- Leader 1 -->
+                    <div class="bg-white rounded-2xl shadow-xl overflow-hidden border border-gray-200 text-center p-6 group hover:-translate-y-2 transition-all">
+                        <div class="w-32 h-32 rounded-full overflow-hidden mx-auto mb-6 border-4 border-gold shadow-md">
+                            <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=500&q=80" alt="Leader" class="w-full h-full object-cover group-hover:scale-105 transition-transform">
+                        </div>
+                        <h3 class="font-serif text-xl font-bold text-navy">Edom Tadesse</h3>
+                        <p class="text-emerald-600 text-sm font-semibold mb-3">Youth Chairperson</p>
+                        <p class="text-gray-600 text-xs leading-relaxed mb-4">Serving with passion to unite youth members and coordinate spiritual growth programs across all departments.</p>
+                        <div class="flex justify-center space-x-3 text-gold">
+                            <span class="w-8 h-8 rounded-full bg-navy/10 flex items-center justify-center text-navy"><i class="fa-solid fa-envelope"></i></span>
+                            <span class="w-8 h-8 rounded-full bg-navy/10 flex items-center justify-center text-navy"><i class="fa-brands fa-telegram"></i></span>
+                        </div>
+                    </div>
+
+                    <!-- Leader 2 -->
+                    <div class="bg-white rounded-2xl shadow-xl overflow-hidden border border-gray-200 text-center p-6 group hover:-translate-y-2 transition-all">
+                        <div class="w-32 h-32 rounded-full overflow-hidden mx-auto mb-6 border-4 border-gold shadow-md">
+                            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=500&q=80" alt="Leader" class="w-full h-full object-cover group-hover:scale-105 transition-transform">
+                        </div>
+                        <h3 class="font-serif text-xl font-bold text-navy">Kalkidan Bekele</h3>
+                        <p class="text-emerald-600 text-sm font-semibold mb-3">Vice Chairperson</p>
+                        <p class="text-gray-600 text-xs leading-relaxed mb-4">Passionate about youth evangelism, discipleship, and coordinating community outreach initiatives.</p>
+                        <div class="flex justify-center space-x-3 text-gold">
+                            <span class="w-8 h-8 rounded-full bg-navy/10 flex items-center justify-center text-navy"><i class="fa-solid fa-envelope"></i></span>
+                            <span class="w-8 h-8 rounded-full bg-navy/10 flex items-center justify-center text-navy"><i class="fa-brands fa-telegram"></i></span>
+                        </div>
+                    </div>
+
+                    <!-- Leader 3 -->
+                    <div class="bg-white rounded-2xl shadow-xl overflow-hidden border border-gray-200 text-center p-6 group hover:-translate-y-2 transition-all">
+                        <div class="w-32 h-32 rounded-full overflow-hidden mx-auto mb-6 border-4 border-gold shadow-md">
+                            <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=500&q=80" alt="Leader" class="w-full h-full object-cover group-hover:scale-105 transition-transform">
+                        </div>
+                        <h3 class="font-serif text-xl font-bold text-navy">Pastor Dawit Alemu</h3>
+                        <p class="text-emerald-600 text-sm font-semibold mb-3">Youth Ministry Advisor</p>
+                        <p class="text-gray-600 text-xs leading-relaxed mb-4">Providing pastoral guidance, biblical counseling, and spiritual oversight for the youth fellowship.</p>
+                        <div class="flex justify-center space-x-3 text-gold">
+                            <span class="w-8 h-8 rounded-full bg-navy/10 flex items-center justify-center text-navy"><i class="fa-solid fa-envelope"></i></span>
+                            <span class="w-8 h-8 rounded-full bg-navy/10 flex items-center justify-center text-navy"><i class="fa-brands fa-telegram"></i></span>
+                        </div>
+                    </div>
+
+                    <!-- Leader 4 -->
+                    <div class="bg-white rounded-2xl shadow-xl overflow-hidden border border-gray-200 text-center p-6 group hover:-translate-y-2 transition-all">
+                        <div class="w-32 h-32 rounded-full overflow-hidden mx-auto mb-6 border-4 border-gold shadow-md">
+                            <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=500&q=80" alt="Leader" class="w-full h-full object-cover group-hover:scale-105 transition-transform">
+                        </div>
+                        <h3 class="font-serif text-xl font-bold text-navy">Bethelhem Mulugeta</h3>
+                        <p class="text-emerald-600 text-sm font-semibold mb-3">Choir & Worship Director</p>
+                        <p class="text-gray-600 text-xs leading-relaxed mb-4">Leading the youth choir and instrumentalists in spirit-filled praise and worship ministry.</p>
+                        <div class="flex justify-center space-x-3 text-gold">
+                            <span class="w-8 h-8 rounded-full bg-navy/10 flex items-center justify-center text-navy"><i class="fa-solid fa-envelope"></i></span>
+                            <span class="w-8 h-8 rounded-full bg-navy/10 flex items-center justify-center text-navy"><i class="fa-brands fa-telegram"></i></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 12. ANNOUNCEMENTS SECTION -->
+        <section id="announcements" class="py-16 bg-navy text-white">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex flex-col md:flex-row items-center justify-between mb-10">
+                    <div>
+                        <span class="text-gold font-bold uppercase tracking-widest text-xs">Stay Informed</span>
+                        <h2 class="font-serif text-3xl font-bold text-white mt-1">Church & Youth Announcements</h2>
+                    </div>
+                    <div class="mt-4 md:mt-0 bg-gold/20 border border-gold/40 text-gold px-4 py-2 rounded-full text-xs font-semibold flex items-center">
+                        <span class="w-2.5 h-2.5 bg-emerald-400 rounded-full animate-ping mr-2"></span> Live Updates
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <!-- Notice 1 -->
+                    <div class="bg-navy-light border border-gold/30 rounded-2xl p-6 relative overflow-hidden group hover:border-gold transition-colors">
+                        <div class="absolute top-0 right-0 bg-gold text-navy text-xs font-bold px-3 py-1 rounded-bl-xl">Urgent</div>
+                        <div class="text-gold text-xs font-semibold mb-2"><i class="fa-solid fa-calendar-day mr-1"></i> October 26, 2026</div>
+                        <h3 class="font-serif text-xl font-bold text-white mb-2">Special Prayer & Fasting Week</h3>
+                        <p class="text-gray-300 text-sm leading-relaxed">Join all youth members this coming Monday through Friday for 3 days of fasting and evening prayer meetings at 6:00 PM.</p>
+                    </div>
+
+                    <!-- Notice 2 -->
+                    <div class="bg-navy-light border border-gold/30 rounded-2xl p-6 relative overflow-hidden group hover:border-gold transition-colors">
+                        <div class="absolute top-0 right-0 bg-emerald-600 text-white text-xs font-bold px-3 py-1 rounded-bl-xl">Notice</div>
+                        <div class="text-gold text-xs font-semibold mb-2"><i class="fa-solid fa-calendar-day mr-1"></i> October 22, 2026</div>
+                        <h3 class="font-serif text-xl font-bold text-white mb-2">Choir Auditions Open</h3>
+                        <p class="text-gray-300 text-sm leading-relaxed">Are you gifted in singing or playing musical instruments? Auditions for the new youth choir season take place this Saturday after fellowship.</p>
+                    </div>
+
+                    <!-- Notice 3 -->
+                    <div class="bg-navy-light border border-gold/30 rounded-2xl p-6 relative overflow-hidden group hover:border-gold transition-colors">
+                        <div class="absolute top-0 right-0 bg-blue-600 text-white text-xs font-bold px-3 py-1 rounded-bl-xl">Update</div>
+                        <div class="text-gold text-xs font-semibold mb-2"><i class="fa-solid fa-calendar-day mr-1"></i> October 18, 2026</div>
+                        <h3 class="font-serif text-xl font-bold text-white mb-2">Online Registration Deadline</h3>
+                        <p class="text-gray-300 text-sm leading-relaxed">All active youth members are kindly requested to complete their digital profile registration via this portal before the end of the month.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 14. ADMINISTRATOR DASHBOARD -->
+        <section id="admin" class="py-20 bg-gray-100 border-t border-gray-300">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <!-- Admin Header & Security Notice -->
+                <div class="bg-navy rounded-3xl p-8 sm:p-12 text-white shadow-2xl mb-10 relative overflow-hidden">
+                    <div class="absolute right-0 top-0 bottom-0 w-1/3 bg-gold/10 hidden lg:block transform skew-x-12"></div>
+                    <div class="relative z-10">
+                        <div class="flex items-center space-x-3 mb-2">
+                            <span class="bg-emerald-500 text-white text-xs uppercase px-3 py-1 rounded-full font-bold"><i class="fa-solid fa-shield mr-1"></i> Admin Portal</span>
+                            <span class="text-gray-400 text-xs">Secure Demonstration Dashboard</span>
+                        </div>
+                        <h2 class="font-serif text-3xl sm:text-4xl font-bold text-gold">Youth Unity Administration Dashboard</h2>
+                        <p class="text-gray-300 text-sm sm:text-base mt-2 max-w-2xl">Manage registered youth members, view statistical breakdowns, search member directory, and export data securely.</p>
+                    </div>
+                </div>
+
+                <!-- Admin Statistics Cards -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-10">
+                    <div class="bg-white rounded-2xl p-6 shadow-md border border-gray-200 flex items-center justify-between">
+                        <div>
+                            <p class="text-gray-500 text-xs uppercase font-semibold">Total Registered</p>
+                            <h3 class="text-3xl font-bold text-navy mt-1" id="admin-total-count">344</h3>
+                            <p class="text-emerald-600 text-xs mt-1"><i class="fa-solid fa-arrow-up mr-1"></i> +12 this week</p>
+                        </div>
+                        <div class="w-14 h-14 rounded-2xl bg-navy text-gold flex items-center justify-center text-2xl shadow">
+                            <i class="fa-solid fa-users"></i>
+                        </div>
+                    </div>
+
+                    <div class="bg-white rounded-2xl p-6 shadow-md border border-gray-200 flex items-center justify-between">
+                        <div>
+                            <p class="text-gray-500 text-xs uppercase font-semibold">Male Members</p>
+                            <h3 class="text-3xl font-bold text-navy mt-1" id="admin-male-count">186</h3>
+                            <p class="text-gray-500 text-xs mt-1">54% of total membership</p>
+                        </div>
+                        <div class="w-14 h-14 rounded-2xl bg-blue-100 text-blue-600 flex items-center justify-center text-2xl shadow">
+                            <i class="fa-solid fa-mars"></i>
+                        </div>
+                    </div>
+
+                    <div class="bg-white rounded-2xl p-6 shadow-md border border-gray-200 flex items-center justify-between">
+                        <div>
+                            <p class="text-gray-500 text-xs uppercase font-semibold">Female Members</p>
+                            <h3 class="text-3xl font-bold text-navy mt-1" id="admin-female-count">158</h3>
+                            <p class="text-gray-500 text-xs mt-1">46% of total membership</p>
+                        </div>
+                        <div class="w-14 h-14 rounded-2xl bg-pink-100 text-pink-600 flex items-center justify-center text-2xl shadow">
+                            <i class="fa-solid fa-venus"></i>
+                        </div>
+                    </div>
+
+                    <div class="bg-white rounded-2xl p-6 shadow-md border border-gray-200 flex items-center justify-between">
+                        <div>
+                            <p class="text-gray-500 text-xs uppercase font-semibold">Active Departments</p>
+                            <h3 class="text-3xl font-bold text-navy mt-1">10</h3>
+                            <p class="text-emerald-600 text-xs mt-1"><i class="fa-solid fa-check mr-1"></i> All operational</p>
+                        </div>
+                        <div class="w-14 h-14 rounded-2xl bg-emerald-100 text-emerald-600 flex items-center justify-center text-2xl shadow">
+                            <i class="fa-solid fa-layer-group"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Member Directory & Management Card -->
+                <div class="bg-white rounded-3xl shadow-xl border border-gray-200 overflow-hidden">
+                    <div class="bg-navy text-white px-6 sm:px-8 py-5 flex flex-col sm:flex-row items-center justify-between gap-4">
+                        <h3 class="font-serif text-xl font-bold text-gold">Registered Member Directory</h3>
+                        <div class="flex items-center space-x-3 w-full sm:w-auto">
+                            <button onclick="exportCSV()" class="w-full sm:w-auto bg-gold hover:bg-gold-light text-navy font-bold px-5 py-2.5 rounded-full text-xs uppercase tracking-wider shadow transition flex items-center justify-center">
+                                <i class="fa-solid fa-file-csv mr-2 text-sm"></i> Export CSV
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Search and Filters -->
+                    <div class="p-6 bg-gray-50 border-b border-gray-200 flex flex-col sm:flex-row items-center justify-between gap-4">
+                        <div class="w-full sm:w-96 relative">
+                            <span class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-gray-400">
+                                <i class="fa-solid fa-search"></i>
+                            </span>
+                            <input type="text" id="admin-search" oninput="filterAdminTable()" placeholder="Search by name, phone, or department..." class="w-full pl-10 pr-4 py-2.5 rounded-xl border border-gray-300 text-sm focus:ring-2 focus:ring-navy focus:outline-none bg-white">
+                        </div>
+                        <div class="flex items-center space-x-3 w-full sm:w-auto">
+                            <select id="admin-dept-filter" onchange="filterAdminTable()" class="w-full sm:w-auto px-4 py-2.5 rounded-xl border border-gray-300 text-sm bg-white focus:outline-none">
+                                <option value="">All Departments</option>
+                                <option value="Prayer & Worship Choir">Prayer & Worship Choir</option>
+                                <option value="Bible Study Fellowship">Bible Study Fellowship</option>
+                                <option value="Gospel Outreach Team">Gospel Outreach Team</option>
+                                <option value="Community Service & Charity">Community Service & Charity</option>
+                                <option value="Media & Technical Team">Media & Technical Team</option>
+                                <option value="General Youth Member">General Youth Member</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Table -->
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left border-collapse">
+                            <thead>
+                                <tr class="bg-gray-100 text-gray-700 text-xs uppercase tracking-wider border-b border-gray-200">
+                                    <th class="py-4 px-6 font-semibold">Reference ID</th>
+                                    <th class="py-4 px-6 font-semibold">Full Name</th>
+                                    <th class="py-4 px-6 font-semibold">Gender</th>
+                                    <th class="py-4 px-6 font-semibold">Phone</th>
+                                    <th class="py-4 px-6 font-semibold">Department</th>
+                                    <th class="py-4 px-6 font-semibold">Date Registered</th>
+                                </tr>
+                            </thead>
+                            <tbody id="admin-table-body" class="divide-y divide-gray-200 text-sm text-gray-700">
+                                <!-- Populated dynamically by JavaScript -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 13. CONTACT US SECTION -->
+        <section id="contact" class="py-20 bg-white">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center max-w-3xl mx-auto mb-16">
+                    <span class="text-gold-dark font-bold uppercase tracking-widest text-sm">Get In Touch</span>
+                    <h2 class="font-serif text-3xl sm:text-4xl font-bold text-navy mt-2 mb-4">Contact Gofe Guenut Church</h2>
+                    <p class="text-gray-600 text-base sm:text-lg">We would love to hear from you. Reach out to us for prayers, fellowship questions, or visits.</p>
+                    <div class="w-24 h-1 bg-gold mx-auto mt-4 rounded-full"></div>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+                    <!-- Contact Info & Socials -->
+                    <div class="space-y-8">
+                        <div class="bg-navy rounded-3xl p-8 text-white shadow-xl space-y-6">
+                            <h3 class="font-serif text-2xl font-bold text-gold">Church Headquarters</h3>
+                            
+                            <div class="flex items-start space-x-4">
+                                <div class="w-12 h-12 rounded-xl bg-gold/20 text-gold flex items-center justify-center text-xl flex-shrink-0">
+                                    <i class="fa-solid fa-location-dot"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold text-base">Address</h4>
+                                    <p class="text-gray-300 text-sm mt-1">Gofe Guenut Evangelical Church, Gofe Local Area, Addis Ababa, Ethiopia</p>
+                                </div>
+                            </div>
+
+                            <div class="flex items-start space-x-4">
+                                <div class="w-12 h-12 rounded-xl bg-gold/20 text-gold flex items-center justify-center text-xl flex-shrink-0">
+                                    <i class="fa-solid fa-phone"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold text-base">Phone Number</h4>
+                                    <p class="text-gray-300 text-sm mt-1">+251 11 123 4567 / +251 91 234 5678</p>
+                                </div>
+                            </div>
+
+                            <div class="flex items-start space-x-4">
+                                <div class="w-12 h-12 rounded-xl bg-gold/20 text-gold flex items-center justify-center text-xl flex-shrink-0">
+                                    <i class="fa-solid fa-envelope"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold text-base">Email Address</h4>
+                                    <p class="text-gray-300 text-sm mt-1">youth@gofeguenutchurch.org</p>
+                                </div>
+                            </div>
+
+                            <!-- Social Links -->
+                            <div class="pt-4 border-t border-gray-800">
+                                <h4 class="font-bold text-sm text-gold mb-3 uppercase tracking-wider">Connect On Social Media</h4>
+                                <div class="flex space-x-4">
+                                    <a href="#facebook" onclick="showToast('Redirecting to Facebook page...')" class="w-12 h-12 rounded-full bg-gold hover:bg-gold-light text-navy flex items-center justify-center text-xl transition-all shadow">
+                                        <i class="fa-brands fa-facebook-f"></i>
+                                    </a>
+                                    <a href="#telegram" onclick="showToast('Redirecting to Telegram channel...')" class="w-12 h-12 rounded-full bg-gold hover:bg-gold-light text-navy flex items-center justify-center text-xl transition-all shadow">
+                                        <i class="fa-brands fa-telegram"></i>
+                                    </a>
+                                    <a href="#youtube" onclick="showToast('Redirecting to YouTube channel...')" class="w-12 h-12 rounded-full bg-gold hover:bg-gold-light text-navy flex items-center justify-center text-xl transition-all shadow">
+                                        <i class="fa-brands fa-youtube"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Map Placeholder -->
+                        <div class="rounded-3xl overflow-hidden shadow-xl border border-gray-200 h-64 bg-gray-200 relative flex items-center justify-center">
+                            <div class="absolute inset-0 bg-navy/20 flex flex-col items-center justify-center text-navy font-bold space-y-2">
+                                <i class="fa-solid fa-map-location-dot text-4xl text-gold"></i>
+                                <span>Gofe Guenut Church Location Map</span>
+                                <span class="text-xs text-gray-600 font-normal">Interactive Google Maps Placeholder</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Contact Form -->
+                    <div class="bg-gray-50 rounded-3xl p-8 sm:p-10 shadow-xl border border-gray-200">
+                        <h3 class="font-serif text-2xl font-bold text-navy mb-2">Send Us a Message</h3>
+                        <p class="text-gray-600 text-sm mb-6">Have a question, inquiry, or prayer request? Fill out the form below.</p>
+                        
+                        <form id="contact-form" onsubmit="handleContactSubmit(event)" class="space-y-6">
+                            <div>
+                                <label class="block text-sm font-semibold text-gray-700 mb-1">Your Name <span class="text-red-500">*</span></label>
+                                <input type="text" id="contact-name" required placeholder="Enter your full name" class="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-navy outline-none bg-white">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-semibold text-gray-700 mb-1">Your Email or Phone <span class="text-red-500">*</span></label>
+                                <input type="text" id="contact-email" required placeholder="Email or Phone Number" class="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-navy outline-none bg-white">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-semibold text-gray-700 mb-1">Message / Prayer Request <span class="text-red-500">*</span></label>
+                                <textarea id="contact-message" rows="4" required placeholder="Write your message here..." class="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-navy outline-none bg-white"></textarea>
+                            </div>
+                            <button type="submit" class="w-full bg-navy hover:bg-navy-light text-white font-bold py-4 rounded-xl shadow-lg transition uppercase tracking-wider text-sm">
+                                <i class="fa-solid fa-paper-plane mr-2"></i> Send Message
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="bg-navy-dark text-white border-t border-gold/30">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-12">
+                <div class="space-y-4 md:col-span-1">
+                    <div class="flex items-center space-x-3">
+                        <div class="w-10 h-10 rounded-full bg-gold text-navy flex items-center justify-center font-bold">
+                            <i class="fa-solid fa-church"></i>
+                        </div>
+                        <span class="font-serif text-lg font-bold text-gold">GOFE GUENUT</span>
+                    </div>
+                    <p class="text-gray-400 text-xs leading-relaxed">
+                        United in Faith, Growing in Love, Serving Together. Building a vibrant Christian youth generation for Christ.
+                    </p>
+                </div>
+
+                <div>
+                    <h4 class="font-serif text-base font-bold text-gold mb-4">Quick Links</h4>
+                    <ul class="space-y-2 text-sm text-gray-300">
+                        <li><a href="#home" class="hover:text-gold transition">Home</a></li>
+                        <li><a href="#about" class="hover:text-gold transition">About Us</a></li>
+                        <li><a href="#register" class="hover:text-gold transition">Youth Registration</a></li>
+                        <li><a href="#activities" class="hover:text-gold transition">Activities</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="font-serif text-base font-bold text-gold mb-4">Ministries</h4>
+                    <ul class="space-y-2 text-sm text-gray-300">
+                        <li><a href="#activities" class="hover:text-gold transition">Prayer & Worship</a></li>
+                        <li><a href="#activities" class="hover:text-gold transition">Bible Study</a></li>
+                        <li><a href="#activities" class="hover:text-gold transition">Gospel Outreach</a></li>
+                        <li><a href="#activities" class="hover:text-gold transition">Choir & Music</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="font-serif text-base font-bold text-gold mb-4">Newsletter</h4>
+                    <p class="text-gray-400 text-xs mb-3">Subscribe to receive youth updates and upcoming event announcements.</p>
+                    <form onsubmit="event.preventDefault(); showToast('Subscribed successfully!');" class="space-y-2">
+                        <input type="email" placeholder="Your email address" required class="w-full px-3 py-2 rounded-lg bg-navy text-xs border border-gray-700 text-white focus:outline-none">
+                        <button type="submit" class="w-full bg-gold hover:bg-gold-light text-navy font-bold py-2 rounded-lg text-xs uppercase">Subscribe</button>
+                    </form>
+                </div>
+            </div>
+
+            <div class="border-t border-gray-800 pt-8 flex flex-col sm:flex-row items-center justify-between text-xs text-gray-400">
+                <p>&copy; <span id="current-year">2026</span> Gofe Guenut Church Youth Unity. All Rights Reserved.</p>
+                <p class="mt-2 sm:mt-0">Designed with faith, excellence, and love.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- LIGHTBOX MODAL -->
+    <div id="lightbox-modal" class="fixed inset-0 z-50 hidden modal-overlay flex items-center justify-center p-4">
+        <div class="relative max-w-4xl w-full bg-navy-dark rounded-3xl overflow-hidden shadow-2xl border border-gold/30 p-2">
+            <button onclick="closeLightbox()" class="absolute top-4 right-4 z-10 w-10 h-10 rounded-full bg-gold text-navy font-bold flex items-center justify-center shadow hover:bg-white transition">
+                <i class="fa-solid fa-xmark text-lg"></i>
+            </button>
+            <img id="lightbox-img" src="" alt="Lightbox" class="w-full max-h-[75vh] object-contain rounded-2xl mx-auto">
+            <div id="lightbox-caption" class="text-center py-4 font-serif text-lg text-gold font-bold"></div>
+        </div>
+    </div>
+
+    <!-- ACTIVITY / EVENT DETAILS MODAL -->
+    <div id="info-modal" class="fixed inset-0 z-50 hidden modal-overlay flex items-center justify-center p-4">
+        <div class="bg-white rounded-3xl max-w-lg w-full p-8 shadow-2xl border border-gray-200 relative space-y-4">
+            <button onclick="closeInfoModal()" class="absolute top-4 right-4 w-8 h-8 rounded-full bg-gray-100 hover:bg-gray-200 text-gray-700 font-bold flex items-center justify-center">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+            <div class="w-12 h-12 rounded-2xl bg-navy text-gold flex items-center justify-center text-xl font-bold">
+                <i class="fa-solid fa-circle-info"></i>
+            </div>
+            <h3 id="modal-title" class="font-serif text-2xl font-bold text-navy"></h3>
+            <div id="modal-content" class="text-gray-600 text-sm leading-relaxed space-y-2"></div>
+            <div class="pt-4 border-t flex justify-end">
+                <button onclick="closeInfoModal()" class="bg-navy hover:bg-navy-light text-white font-bold px-6 py-2.5 rounded-xl text-sm">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- BACK TO TOP BUTTON -->
+    <button id="back-to-top" onclick="window.scrollTo({top: 0, behavior: 'smooth'})" class="fixed bottom-6 left-6 z-40 hidden w-12 h-12 rounded-full bg-gold text-navy font-bold shadow-xl flex items-center justify-center hover:bg-gold-light transition-all transform hover:-translate-y-1" aria-label="Back to top">
+        <i class="fa-solid fa-arrow-up text-lg"></i>
+    </button>
+
+    <!-- JAVASCRIPT LOGIC -->
+    <script>
+        /* Set current year automatically */
+        document.getElementById('current-year').textContent = new Date().getFullYear();
+
+        /* Mobile Menu Toggle */
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // Close mobile menu when clicking any link
+        document.querySelectorAll('.mobile-link').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+            });
+        });
+
+        /* Toast Notification System */
+        function showToast(message, type = 'success') {
+            const container = document.getElementById('toast-container');
+            const toast = document.createElement('div');
+            toast.className = `pointer-events-auto px-6 py-3 rounded-2xl shadow-xl text-white text-sm font-semibold flex items-center space-x-3 transition-all transform translate-y-4 opacity-0 ${type === 'success' ? 'bg-emerald-600' : 'bg-navy'}`;
+            toast.innerHTML = `<i class="fa-solid fa-circle-check text-gold"></i><span>${message}</span>`;
+            container.appendChild(toast);
+
+            setTimeout(() => {
+                toast.classList.remove('translate-y-4', 'opacity-0');
+            }, 50);
+
+            setTimeout(() => {
+                toast.classList.add('translate-y-4', 'opacity-0');
+                setTimeout(() => toast.remove(), 300);
+            }, 4000);
+        }
+
+        /* Profile Photo Preview Logic */
+        const photoFileInput = document.getElementById('photoFile');
+        const photoPreview = document.getElementById('photo-preview');
+        const photoPlaceholderIcon = document.getElementById('photo-placeholder-icon');
+
+        photoFileInput.addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(event) {
+                    photoPreview.src = event.target.result;
+                    photoPreview.classList.remove('hidden');
+                    photoPlaceholderIcon.classList.add('hidden');
+                }
+                reader.readAsDataURL(file);
+            }
+        });
+
+        /* Mock Registered Members Database */
+        let registeredMembers = [
+            { ref: 'GG-YOUTH-2026-1001', name: 'Amanuel Tesfaye', gender: 'Male', phone: '+251 91 122 3344', dept: 'Prayer & Worship Choir', date: '2026-10-01' },
+            { ref: 'GG-YOUTH-2026-1002', name: 'Hanna Mulugeta', gender: 'Female', phone: '+251 92 333 4455', dept: 'Bible Study Fellowship', date: '2026-10-03' },
+            { ref: 'GG-YOUTH-2026-1003', name: 'Nathaniel Kebede', gender: 'Male', phone: '+251 93 444 5566', dept: 'Gospel Outreach Team', date: '2026-10-08' },
+            { ref: 'GG-YOUTH-2026-1004', name: 'Ruth Solomon', gender: 'Female', phone: '+251 94 555 6677', dept: 'Community Service & Charity', date: '2026-10-12' },
+            { ref: 'GG-YOUTH-2026-1005', name: 'Ephrem Getachew', gender: 'Male', phone: '+251 95 666 7788', dept: 'Media & Technical Team', date: '2026-10-15' },
+            { ref: 'GG-YOUTH-2026-1006', name: 'Meron Tadesse', gender: 'Female', phone: '+251 96 777 8899', dept: 'General Youth Member', date: '2026-10-20' }
+        ];
+
+        /* Render Admin Table */
+        function renderAdminTable(data = registeredMembers) {
+            const tbody = document.getElementById('admin-table-body');
+            tbody.innerHTML = '';
+            
+            if (data.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="6" class="text-center py-6 text-gray-400">No members found matching criteria.</td></tr>`;
+                return;
+            }
+
+            data.forEach(member => {
+                const tr = document.createElement('tr');
+                tr.className = 'hover:bg-gray-50 transition-colors';
+                tr.innerHTML = `
+                    <td class="py-4 px-6 font-mono font-bold text-gold-dark text-xs">${member.ref}</td>
+                    <td class="py-4 px-6 font-medium text-navy">${member.name}</td>
+                    <td class="py-4 px-6">${member.gender}</td>
+                    <td class="py-4 px-6">${member.phone}</td>
+                    <td class="py-4 px-6"><span class="bg-navy/10 text-navy text-xs font-semibold px-2.5 py-1 rounded-full">${member.dept}</span></td>
+                    <td class="py-4 px-6 text-gray-500 text-xs">${member.date}</td>
+                `;
+                tbody.appendChild(tr);
+            });
+
+            // Update stats
+            document.getElementById('admin-total-count').textContent = registeredMembers.length + 338; // Mock offset
+            document.getElementById('stat-members').textContent = (registeredMembers.length + 338) + '+';
+        }
+
+        // Initialize table
+        renderAdminTable();
+
+        /* Admin Search & Filter */
+        function filterAdminTable() {
+            const query = document.getElementById('admin-search').value.toLowerCase();
+            const dept = document.getElementById('admin-dept-filter').value;
+
+            const filtered = registeredMembers.filter(m => {
+                const matchesQuery = m.name.toLowerCase().includes(query) || m.phone.toLowerCase().includes(query) || m.ref.toLowerCase().includes(query);
+                const matchesDept = dept === '' || m.dept === dept;
+                return matchesQuery && matchesDept;
+            });
+
+            renderAdminTable(filtered);
+        }
+
+        /* Export CSV Demonstration */
+        function exportCSV() {
+            let csv = 'Reference ID,Full Name,Gender,Phone,Department,Registration Date\n';
+            registeredMembers.forEach(m => {
+                csv += `"${m.ref}","${m.name}","${m.gender}","${m.phone}","${m.dept}","${m.date}"\n`;
+            });
+
+            const blob = new Blob([csv], { type: 'text/csv' });
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.setAttribute('href', url);
+            a.setAttribute('download', 'GofeGuenut_Youth_Members.csv');
+            a.click();
+            showToast('Registration data exported to CSV successfully!');
+        }
+
+        /* Registration Form Submission Handler */
+        const regForm = document.getElementById('youth-reg-form');
+        regForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            // Validate required fields
+            const fullName = document.getElementById('fullName').value.trim();
+            const dob = document.getElementById('dob').value;
+            const gender = document.getElementById('gender').value;
+            const phone = document.getElementById('phone').value.trim();
+            const address = document.getElementById('address').value.trim();
+            const kebele = document.getElementById('kebele').value.trim();
+            const membershipStatus = document.getElementById('membershipStatus').value;
+            const youthGroup = document.getElementById('youthGroup').value;
+            const serviceParticipation = document.getElementById('serviceParticipation').value.trim();
+            const educationLevel = document.getElementById('educationLevel').value;
+            const occupation = document.getElementById('occupation').value.trim();
+            const talents = document.getElementById('talents').value.trim();
+            const emergencyName = document.getElementById('emergencyName').value.trim();
+            const emergencyRelation = document.getElementById('emergencyRelation').value.trim();
+            const emergencyPhone = document.getElementById('emergencyPhone').value.trim();
+            const motivation = document.getElementById('motivation').value.trim();
+            const agreePolicy = document.getElementById('agreePolicy').checked;
+
+            let isValid = true;
+
+            // Simple validation check
+            const fields = [
+                { id: 'fullName', val: fullName },
+                { id: 'dob', val: dob },
+                { id: 'gender', val: gender },
+                { id: 'phone', val: phone },
+                { id: 'address', val: address },
+                { id: 'kebele', val: kebele },
+                { id: 'membershipStatus', val: membershipStatus },
+                { id: 'youthGroup', val: youthGroup },
+                { id: 'serviceParticipation', val: serviceParticipation },
+                { id: 'educationLevel', val: educationLevel },
+                { id: 'occupation', val: occupation },
+                { id: 'talents', val: talents },
+                { id: 'emergencyName', val: emergencyName },
+                { id: 'emergencyRelation', val: emergencyRelation },
+                { id: 'emergencyPhone', val: emergencyPhone },
+                { id: 'motivation', val: motivation }
+            ];
+
+            fields.forEach(f => {
+                const errEl = document.getElementById(`err-${f.id}`);
+                if (!f.val) {
+                    isValid = false;
+                    if (errEl) errEl.classList.remove('hidden');
+                } else {
+                    if (errEl) errEl.classList.add('hidden');
+                }
+            });
+
+            const errAgree = document.getElementById('err-agreePolicy');
+            if (!agreePolicy) {
+                isValid = false;
+                errAgree.classList.remove('hidden');
+            } else {
+                errAgree.classList.add('hidden');
+            }
+
+            if (!isValid) {
+                showToast('Please fill out all required fields correctly.', 'error');
+                return;
+            }
+
+            // Generate unique demonstration reference number
+            const randomNum = Math.floor(1000 + Math.random() * 9000);
+            const refNumber = `GG-YOUTH-2026-${randomNum}`;
+            const currentDate = new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+
+            // Add to mock admin directory
+            registeredMembers.unshift({
+                ref: refNumber,
+                name: fullName,
+                gender: gender,
+                phone: phone,
+                dept: youthGroup,
+                date: new Date().toISOString().split('T')[0]
+            });
+            renderAdminTable();
+
+            // Populate success screen
+            document.getElementById('conf-name').textContent = fullName;
+            document.getElementById('conf-ref').textContent = refNumber;
+            document.getElementById('conf-group').textContent = youthGroup;
+            document.getElementById('conf-date').textContent = currentDate;
+
+            // Hide form and show success screen
+            regForm.classList.add('hidden');
+            document.getElementById('success-screen').classList.remove('hidden');
+            showToast('Registration submitted successfully!');
+
+            // Scroll to top of registration section
+            document.getElementById('register').scrollIntoView({ behavior: 'smooth' });
+        });
+
+        function resetRegistrationForm() {
+            regForm.reset();
+            photoPreview.classList.add('hidden');
+            photoPlaceholderIcon.classList.remove('hidden');
+            document.getElementById('success-screen').classList.add('hidden');
+            regForm.classList.remove('hidden');
+        }
+
+        /* Lightbox Functionality */
+        function openLightbox(imgSrc, caption) {
+            const modal = document.getElementById('lightbox-modal');
+            const img = document.getElementById('lightbox-img');
+            const cap = document.getElementById('lightbox-caption');
+
+            img.src = imgSrc;
+            cap.textContent = caption;
+            modal.classList.remove('hidden');
+        }
+
+        function closeLightbox() {
+            document.getElementById('lightbox-modal').classList.add('hidden');
+        }
+
+        /* Activity / Event Modal Details */
+        function openActivityModal(title, description) {
+            const modal = document.getElementById('info-modal');
+            document.getElementById('modal-title').textContent = title;
+            document.getElementById('modal-content').innerHTML = `<p>${description}</p><p class="mt-4 text-xs font-semibold text-emerald-600"><i class="fa-solid fa-circle-check mr-1"></i> Open to all Gofe Guenut youth members.</p>`;
+            modal.classList.remove('hidden');
+        }
+
+        function openEventModal(title, date, time, location, description) {
+            const modal = document.getElementById('info-modal');
+            document.getElementById('modal-title').textContent = title;
+            document.getElementById('modal-content').innerHTML = `
+                <p class="font-medium text-navy">${description}</p>
+                <div class="mt-4 space-y-2 text-xs bg-gray-50 p-4 rounded-xl border">
+                    <div><strong class="text-navy">Date:</strong> ${date}</div>
+                    <div><strong class="text-navy">Time:</strong> ${time}</div>
+                    <div><strong class="text-navy">Location:</strong> ${location}</div>
+                </div>
+            `;
+            modal.classList.remove('hidden');
+        }
+
+        function closeInfoModal() {
+            document.getElementById('info-modal').classList.add('hidden');
+        }
+
+        /* Event Filtering */
+        function filterEvents(category) {
+            const buttons = document.querySelectorAll('.event-filter-btn');
+            buttons.forEach(btn => {
+                if (btn.textContent.includes(category) || (category === 'all' && btn.textContent.includes('All'))) {
+                    btn.className = 'event-filter-btn px-5 py-2 rounded-full font-medium text-sm bg-navy text-white transition shadow';
+                } else {
+                    btn.className = 'event-filter-btn px-5 py-2 rounded-full font-medium text-sm bg-white text-gray-700 hover:bg-gray-100 transition shadow';
+                }
+            });
+
+            const cards = document.querySelectorAll('.event-card');
+            cards.forEach(card => {
+                const cat = card.getAttribute('data-category');
+                if (category === 'all' || cat === category) {
+                    card.style.display = 'flex';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+
+        /* Contact Form Handler */
+        function handleContactSubmit(e) {
+            e.preventDefault();
+            const name = document.getElementById('contact-name').value;
+            showToast(`Thank you ${name}! Your message has been sent successfully.`);
+            document.getElementById('contact-form').reset();
+        }
+
+        /* Back to Top Scroll Listener */
+        window.addEventListener('scroll', () => {
+            const backToTopBtn = document.getElementById('back-to-top');
+            if (window.scrollY > 400) {
+                backToTopBtn.classList.remove('hidden');
+            } else {
+                backToTopBtn.classList.add('hidden');
+            }
+        });
+    </script>
+</body>
+</html>
